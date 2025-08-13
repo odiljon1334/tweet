@@ -1,4 +1,9 @@
-import { addDoc, collection, updateDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
 import { useState } from "react";
 import { styled } from "styled-components";
 import { auth, db, storage } from "../firebase";
@@ -82,7 +87,7 @@ export default function PostTweetForm() {
       setLoading(true);
       const doc = await addDoc(collection(db, "tweets"), {
         tweet,
-        createdAt: Date.now(),
+        createAt: serverTimestamp(),
         username: user.displayName || "Anonymous",
         userId: user.uid,
       });
